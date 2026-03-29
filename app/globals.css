@@ -1,0 +1,225 @@
+@import url('https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   CSS VARIABLES
+   ============================================================ */
+:root {
+  --font-teko: 'Teko', sans-serif;
+  --font-jakarta: 'Plus Jakarta Sans', sans-serif;
+
+  /* Colors */
+  --void:    #060810;
+  --abyss:   #0D1117;
+  --surface: #141B2D;
+  --border:  #1E2A40;
+  --muted:   #2A3A5A;
+
+  --gold:    #FFB800;
+  --flame:   #FF6B35;
+  --sky:     #00A8E8;
+  --emerald: #00E676;
+  --crimson: #FF1744;
+
+  --text-primary:   #F0F4FF;
+  --text-secondary: #8899BB;
+  --text-muted:     #4A5A7A;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  background-color: var(--void);
+  color: var(--text-primary);
+  font-family: var(--font-jakarta);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--abyss); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+/* Selection */
+::selection { background: #FFB80033; color: var(--gold); }
+
+/* Focus */
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+/* ============================================================
+   TYPOGRAPHY
+   ============================================================ */
+.font-display { font-family: var(--font-teko); }
+
+h1, h2, h3 { font-family: var(--font-teko); letter-spacing: 0.02em; }
+
+/* ============================================================
+   COMPONENT CLASSES
+   ============================================================ */
+@layer components {
+
+  /* Glass card */
+  .glass {
+    @apply bg-abyss/80 backdrop-blur-xl border border-border/50;
+    background-image: linear-gradient(135deg, #ffffff06 0%, transparent 50%);
+  }
+
+  .glass-hover {
+    @apply glass transition-all duration-300;
+    &:hover {
+      @apply border-border bg-surface/80;
+      box-shadow: 0 8px 32px #00000066, inset 0 1px 0 #ffffff10;
+    }
+  }
+
+  /* Gold button */
+  .btn-gold {
+    @apply relative inline-flex items-center justify-center gap-2
+           px-6 py-3 rounded-xl font-semibold text-void
+           bg-gold transition-all duration-200
+           hover:bg-gold-light active:scale-95
+           disabled:opacity-50 disabled:cursor-not-allowed;
+    box-shadow: 0 4px 16px #FFB80044;
+    &:hover { box-shadow: 0 6px 24px #FFB80066; }
+  }
+
+  /* Ghost button */
+  .btn-ghost {
+    @apply relative inline-flex items-center justify-center gap-2
+           px-6 py-3 rounded-xl font-semibold text-text-primary
+           border border-border bg-transparent
+           transition-all duration-200
+           hover:border-border/80 hover:bg-surface/50
+           active:scale-95
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  /* Flame button */
+  .btn-flame {
+    @apply relative inline-flex items-center justify-center gap-2
+           px-6 py-3 rounded-xl font-semibold text-white
+           bg-flame transition-all duration-200
+           hover:bg-flame-light active:scale-95
+           disabled:opacity-50 disabled:cursor-not-allowed;
+    box-shadow: 0 4px 16px #FF6B3544;
+  }
+
+  /* Input field */
+  .input-field {
+    @apply w-full px-4 py-3 rounded-xl
+           bg-surface border border-border
+           text-text-primary placeholder:text-text-muted
+           transition-all duration-200
+           focus:outline-none focus:border-gold/60 focus:ring-1 focus:ring-gold/30
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  /* Badge */
+  .badge {
+    @apply inline-flex items-center gap-1 px-2.5 py-1
+           rounded-full text-xs font-semibold;
+  }
+  .badge-gold    { @apply badge bg-gold/20 text-gold border border-gold/30; }
+  .badge-flame   { @apply badge bg-flame/20 text-flame border border-flame/30; }
+  .badge-sky     { @apply badge bg-sky/20 text-sky border border-sky/30; }
+  .badge-emerald { @apply badge bg-emerald/20 text-emerald border border-emerald/30; }
+  .badge-crimson { @apply badge bg-crimson/20 text-crimson border border-crimson/30; }
+  .badge-muted   { @apply badge bg-muted/30 text-text-secondary border border-border; }
+
+  /* Stat card */
+  .stat-card {
+    @apply glass rounded-2xl p-5 flex flex-col gap-1;
+  }
+
+  /* Section heading */
+  .section-heading {
+    @apply font-display text-3xl font-semibold tracking-wide text-text-primary;
+  }
+
+  /* Divider */
+  .divider {
+    @apply w-full h-px bg-gradient-to-r from-transparent via-border to-transparent;
+  }
+
+  /* Glow text */
+  .text-glow-gold {
+    text-shadow: 0 0 20px #FFB80066, 0 0 40px #FFB80033;
+  }
+  .text-glow-flame {
+    text-shadow: 0 0 20px #FF6B3566, 0 0 40px #FF6B3533;
+  }
+
+  /* Shimmer skeleton */
+  .skeleton {
+    @apply bg-surface rounded-lg animate-shimmer;
+    background-image: linear-gradient(90deg, var(--surface) 25%, var(--border) 50%, var(--surface) 75%);
+    background-size: 200% 100%;
+  }
+
+  /* Role badge */
+  .role-super_admin  { @apply badge-gold; }
+  .role-curator      { @apply badge-sky; }
+  .role-auctioneer   { @apply badge-flame; }
+  .role-team_owner   { @apply badge-emerald; }
+  .role-spectator    { @apply badge-muted; }
+}
+
+/* ============================================================
+   FRANCHISE COLORS
+   ============================================================ */
+.franchise-MI   { --fc: #004BA0; --fs: #00BFFF; }
+.franchise-CSK  { --fc: #FDB913; --fs: #004C97; }
+.franchise-RCB  { --fc: #EC1C24; --fs: #000000; }
+.franchise-KKR  { --fc: #3A225D; --fs: #B3A123; }
+.franchise-DC   { --fc: #0078BC; --fs: #EF1B23; }
+.franchise-SRH  { --fc: #F26522; --fs: #000000; }
+.franchise-PBKS { --fc: #ED1B24; --fs: #A7A9AC; }
+.franchise-GT   { --fc: #1C1C5E; --fs: #C8A951; }
+.franchise-LSG  { --fc: #A72B3D; --fs: #FBDB1C; }
+.franchise-RR   { --fc: #2D4EA2; --fs: #E8527D; }
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+
+/* Noise texture overlay */
+.noise::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Timer danger state */
+.timer-danger {
+  @apply text-crimson animate-timer-pulse;
+  text-shadow: 0 0 20px #FF174466;
+}
+
+/* Bid flash */
+.bid-flash-anim {
+  animation: bid-flash 0.5s ease forwards;
+}
+
+/* Page transition */
+.page-enter {
+  animation: slide-up 0.4s ease forwards;
+}
